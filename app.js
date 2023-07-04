@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -19,8 +16,8 @@ const {
 } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const { NotFoundError } = require('./errors/collectionOfErrors');
-
-const db = 'mongodb://127.0.0.1:27017/bitfilmsdb';
+const { db } = require('./constate/constant');
+const errorMessage = require('./constate/errorMessage');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -29,7 +26,7 @@ app.use(cors());
 app.options('*', cors());
 
 mongoose.connect(db)
-  .then((res) => console.log('База даннных подключена'))
+  .then(() => console.log('База даннных подключена'))
   .catch(((error) => console.log(error)));
 
 app.use(bodyParser.json());
@@ -53,7 +50,7 @@ app.use('/movies', routersMovies);
 app.use('/users', routersUser);
 
 app.use((req, res, next) => {
-  next(new NotFoundError('Путь не найден'));
+  next(new NotFoundError(errorMessage.pathNotFound));
 });
 
 app.listen(PORT, () => {
@@ -66,4 +63,5 @@ app.use(errors());
 app.use((err, req, res, next) => {
   const status = err.statusCode || 500;
   res.status(status).send({ message: err.message });
+  next();
 });

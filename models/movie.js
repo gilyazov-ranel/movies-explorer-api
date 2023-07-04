@@ -1,6 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const mongoose = require('mongoose');
 const isUrl = require('validator/lib/isURL');
+const errorMessage = require('../constate/errorMessage');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => isUrl(v),
-      message: 'Неправильный формат ссылки',
+      message: errorMessage.errorUrl,
     },
   },
   trailerLink: {
@@ -36,7 +36,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => isUrl(v),
-      message: 'Неправильный формат ссылки',
+      message: errorMessage.errorUrl,
     },
   },
   thumbnail: {
@@ -44,7 +44,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => isUrl(v),
-      message: 'Неправильный формат ссылки',
+      message: errorMessage.errorUrl,
     },
   },
   owner: {

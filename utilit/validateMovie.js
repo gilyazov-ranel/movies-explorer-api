@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 const { celebrate, Joi } = require('celebrate');
 
 module.exports.validateMovieJoi = celebrate({
@@ -9,13 +8,13 @@ module.exports.validateMovieJoi = celebrate({
     year: Joi.string().required(),
     description: Joi.string().required(),
     image: Joi.string().required().pattern(
-      /https*\:\/\/w{0,3}\.*[a-z0-9\-]*\.[a-z].*[a-z0-9\/]/,
+      /https*:\/\/w{0,3}\.*[a-z0-9-]*\.[a-z].*[a-z0-9]/,
     ),
     trailerLink: Joi.string().required().pattern(
-      /https*\:\/\/w{0,3}\.*[a-z0-9\-]*\.[a-z].*[a-z0-9\/]/,
+      /https*:\/\/w{0,3}\.*[a-z0-9-]*\.[a-z].*[a-z0-9]/,
     ),
     thumbnail: Joi.string().required().pattern(
-      /https*\:\/\/w{0,3}\.*[a-z0-9\-]*\.[a-z].*[a-z0-9\/]/,
+      /https*:\/\/w{0,3}\.*[a-z0-9-]*\.[a-z].*[a-z0-9]/,
     ),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
